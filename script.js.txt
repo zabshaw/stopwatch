@@ -1,0 +1,35 @@
+const timer = document.getElementById('timer');
+const startBtn = document.getElementById('start');
+const stopBtn = document.getElementById('stop');
+const resetBtn = document.getElementById('reset');
+
+let totalTime = 0;
+let interval;
+
+function formatTime(time) {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    totalTime++;
+    timer.textContent = formatTime(totalTime);
+}
+
+startBtn.addEventListener('click', () => {
+    clearInterval(interval);
+    interval = setInterval(updateTimer, 1000);
+});
+
+stopBtn.addEventListener('click', () => {
+    clearInterval(interval);
+});
+
+resetBtn.addEventListener('click', () => {
+    clearInterval(interval);
+    totalTime = 0;
+    timer.textContent = formatTime(totalTime);
+});
